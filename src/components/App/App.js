@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Gallery from "../Gallery/Gallery";
 import "./App.css";
 import photos from "../../photos.js";
 
@@ -15,11 +16,7 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="App">
-        <Gallery data={this.state.data} />
-      </div>
-    );
+    return <Gallery data={this.state.data} />;
   }
 }
 
