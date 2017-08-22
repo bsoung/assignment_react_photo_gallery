@@ -8,13 +8,17 @@ export default class App extends Component {
     super(props);
     this.state = {
       data: photos.data,
-      photoFilters: []
+      photoFilters: [],
+      filterCount: photos.data.length,
+      pager: {}
     };
   }
 
   componentDidMount() {
     this._getPhotoFilters();
   }
+
+  _setPage = page => {};
 
   _getPhotoFilters = () => {
     let arr = [];
@@ -31,20 +35,29 @@ export default class App extends Component {
 
   onChangeFilter = e => {
     let originalPhotos = photos.data;
+    if (e.target.value === "all") {
+      this.setState({
+        data: originalPhotos,
+        filterCount: originalPhotos.length
+      });
+      return;
+    }
     let arr = originalPhotos.filter(d => d.filter === e.target.value);
 
     this.setState({
-      data: arr
+      data: arr,
+      filterCount: arr.length
     });
   };
 
   render() {
-    const { data, photoFilters } = this.state;
+    const { data, photoFilters, filterCount } = this.state;
     return (
       <Gallery
         data={data}
         photoFilters={photoFilters}
         onChangeFilter={this.onChangeFilter}
+        filterCount={filterCount}
       />
     );
   }
