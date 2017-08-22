@@ -9,6 +9,7 @@ export default class App extends Component {
     this.state = {
       data: photos.data,
       photoFilters: [],
+      filteredPhotos: photos.data.slice(0, 12),
       currentPhotos: photos.data.slice(0, 12),
       filterCount: 12,
       currentPage: 1,
@@ -45,6 +46,7 @@ export default class App extends Component {
 
     this.setState({
       currentPhotos: currentPhotos,
+      filteredPhotos: currentPhotos,
       currentPage: Number(e.target.id),
       filterCount: currentPhotos.length
     });
@@ -55,21 +57,21 @@ export default class App extends Component {
   };
 
   onChangeFilter = e => {
-    let originalPhotos = this.state.currentPhotos.slice();
-
     if (e.target.value === "all") {
       this.setState({
-        currentPhotos: originalPhotos,
-        filterCount: originalPhotos.length
+        currentPhotos: this.state.filteredPhotos,
+        filterCount: this.state.filteredPhotos.length
       });
       return;
     }
 
+    let arr = this.state.filteredPhotos.filter(
+      d => d.filter === e.target.value
+    );
+
     this.setState({
-      currentPhotos: this.state.currentPhotos.filter(
-        d => d.filter === e.target.value
-      ),
-      filterCount: this.state.currentPhotos.length
+      currentPhotos: arr,
+      filterCount: arr.length
     });
   };
 

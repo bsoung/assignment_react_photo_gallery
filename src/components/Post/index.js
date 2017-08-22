@@ -5,7 +5,7 @@ import moment from "moment";
 
 export default props => {
   return (
-    <div>
+    <div className="post">
       <h3 className="post-username">
         <a
           className="post-user-name"
