@@ -4,11 +4,22 @@ import Search from "../Search";
 import "./Gallery.css";
 
 export default props => {
-	console.log(props, "????");
-	return (
-		<div className="gallery">
-			<Search {...props} />
-			{props.data.map(item => <Post {...item} key={item.user.id} />)}
-		</div>
-	);
+  const renderPageNumbers = props.pageNumbers.map(number => {
+    return (
+      <li key={number} onClick={props.handleClick} id={number}>
+        {number}
+      </li>
+    );
+  });
+  return (
+    <div>
+      <div className="gallery">
+        <Search {...props} />
+        {props.data.map(item => <Post {...item} key={item.user.id} />)}
+      </div>
+      <div className="page-numbers">
+        {renderPageNumbers}
+      </div>
+    </div>
+  );
 };

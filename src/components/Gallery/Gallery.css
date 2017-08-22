@@ -1,6 +1,18 @@
 .gallery {
-	display: flex;
-	justify-content: space-around;
-	flex-direction: row;
-	flex-wrap: wrap;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.page-numbers {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  list-style-type: none;
+  font-size: 20px;
+}
+
+.page-numbers li {
+  margin-right: 10px;
 }

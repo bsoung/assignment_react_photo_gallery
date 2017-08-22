@@ -9,16 +9,19 @@ export default class App extends Component {
     this.state = {
       data: photos.data,
       photoFilters: [],
-      filterCount: photos.data.length,
+      filterCount: 12,
       currentPage: 1,
-      photosPerPage: 12
-      // pageNumbers: []
+      photosPerPage: 12,
+      currentPhotos: []
     };
   }
 
   componentDidMount() {
     this._getPhotoFilters();
+    this._pagination();
   }
+
+  componentDidUpdate() {}
 
   _getPhotoFilters = () => {
     let arr = [];
@@ -33,24 +36,32 @@ export default class App extends Component {
     });
   };
 
-  // _getPageNumbers = () => {
-  //   const { data, photosPerPage } = this.state;
-  //   const pageNumbers = [];
-  //   for (let i = 1; i <= Math.ceil(data.length / photosPerPage); i++) {
-  //     pageNumbers.push(i);
-  //   }
+  _pagination = () => {
+    const { currentPage, photosPerPage, data } = this.state;
+    const indexOfLastPhoto = currentPage * photosPerPage;
+    const indexOfFirstPhoto = indexOfLastPhoto - photosPerPage;
+    const currentPhotos = data.slice(indexOfFirstPhoto, indexOfLastPhoto);
 
-  //   this.setState({
-  //     pageNumbers: pageNumbers
-  //   });
-  // };
+    this.setState({
+      currentPhotos: currentPhotos,
+      filterCount: currentPhotos.length
+    });
+  };
+
+  handleClick = event => {
+    console.log("???????????");
+    console.log(this.state.currentPage);
+    this.setState({
+      currentPage: Number(event.target.id)
+    });
+  };
 
   onChangeFilter = e => {
-    let originalPhotos = photos.data;
+    let originalPhotos = this.state.currentPhotos.slice();
 
     if (e.target.value === "all") {
       this.setState({
-        data: originalPhotos,
+        currentPhotos: originalPhotos,
         filterCount: originalPhotos.length
       });
       return;
@@ -58,7 +69,7 @@ export default class App extends Component {
     let arr = originalPhotos.filter(d => d.filter === e.target.value);
 
     this.setState({
-      data: arr,
+      currentPhotos: arr,
       filterCount: arr.length
     });
   };
@@ -69,12 +80,9 @@ export default class App extends Component {
       photoFilters,
       currentPage,
       photosPerPage,
-      filterCount
+      filterCount,
+      currentPhotos
     } = this.state;
-
-    const indexOfLastPhoto = currentPage * photosPerPage;
-    const indexOfFirstPhoto = indexOfLastPhoto - photosPerPage;
-    const currentPhotos = data.slice(indexOfFirstPhoto, indexOfLastPhoto);
 
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(data.length / photosPerPage); i++) {
@@ -88,6 +96,7 @@ export default class App extends Component {
         data={currentPhotos}
         photoFilters={photoFilters}
         onChangeFilter={this.onChangeFilter}
+        handleClick={this.handleClick}
       />
     );
   }
