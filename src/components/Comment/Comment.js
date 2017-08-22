@@ -2,7 +2,7 @@ import React from "react";
 import User from "../User/User";
 import "./Comment.css";
 
-const Comment = ({ comment }) =>
+export default ({ comment }) =>
   <div className="comment">
     <div>
       <User user={comment.from} />
@@ -17,4 +17,4 @@ const Comment = ({ comment }) =>
     </div>
   </div>;
 
-export default Comment;
+

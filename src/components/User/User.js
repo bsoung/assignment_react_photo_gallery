@@ -1,7 +1,7 @@
 import React from "react";
 import "./User.css";
 
-const User = ({ user }) =>
+export default ({ user }) =>
 	<div className="user">
 		<p>
 			Username: {user.username} ({user.full_name})
@@ -12,4 +12,4 @@ const User = ({ user }) =>
 		/>
 	</div>;
 
-export default User;
+
