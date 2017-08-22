@@ -3,6 +3,7 @@ import Dropdown from "react-dropdown";
 import "./Search.css";
 
 export default props => {
+	console.log(props, "search");
 	return (
 		<div className="search">
 			{props.photoFilters.length &&

@@ -1,6 +1,6 @@
 import React from "react";
-import Post from "../Post/Post";
-import Search from "../Search/Search";
+import Post from "../Post";
+import Search from "../Search";
 import "./Gallery.css";
 
 export default props => {

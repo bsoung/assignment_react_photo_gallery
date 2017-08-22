@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Gallery from "../Gallery/Gallery";
+import Gallery from "../Gallery";
 import "./App.css";
 import photos from "../../photos.js";
 
@@ -39,12 +39,12 @@ export default class App extends Component {
   };
 
   render() {
-    const { data, photoFilters, onChangeFilter } = this.state;
+    const { data, photoFilters } = this.state;
     return (
       <Gallery
         data={data}
         photoFilters={photoFilters}
-        onChangeFilter={onChangeFilter}
+        onChangeFilter={this.onChangeFilter}
       />
     );
   }
