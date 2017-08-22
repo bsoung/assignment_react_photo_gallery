@@ -9,16 +9,17 @@ export default class App extends Component {
     this.state = {
       data: photos.data,
       photoFilters: [],
+      currentPhotos: photos.data.slice(0, 12),
       filterCount: 12,
       currentPage: 1,
-      photosPerPage: 12,
-      currentPhotos: []
+      photosPerPage: 12
     };
   }
 
   componentDidMount() {
     this._getPhotoFilters();
-    this._pagination();
+
+    // this._pagination();
   }
 
   componentDidUpdate() {}
@@ -36,41 +37,39 @@ export default class App extends Component {
     });
   };
 
-  _pagination = () => {
+  _pagination = e => {
     const { currentPage, photosPerPage, data } = this.state;
-    const indexOfLastPhoto = currentPage * photosPerPage;
+    const indexOfLastPhoto = e.target.id * photosPerPage;
     const indexOfFirstPhoto = indexOfLastPhoto - photosPerPage;
     const currentPhotos = data.slice(indexOfFirstPhoto, indexOfLastPhoto);
 
     this.setState({
       currentPhotos: currentPhotos,
+      currentPage: Number(e.target.id),
       filterCount: currentPhotos.length
     });
   };
 
-  handleClick = event => {
-    console.log("???????????");
-    console.log(this.state.currentPage);
-    this.setState({
-      currentPage: Number(event.target.id)
-    });
+  handleClick = e => {
+    this._pagination(e);
   };
 
   onChangeFilter = e => {
-    let originalPhotos = this.state.currentPhotos.slice();
+    // let originalPhotos = this.state.currentPhotos.slice();
 
-    if (e.target.value === "all") {
-      this.setState({
-        currentPhotos: originalPhotos,
-        filterCount: originalPhotos.length
-      });
-      return;
-    }
-    let arr = originalPhotos.filter(d => d.filter === e.target.value);
+    // if (e.target.value === "all") {
+    //   this.setState({
+    //     currentPhotos: originalPhotos,
+    //     filterCount: originalPhotos.length
+    //   });
+    //   return;
+    // }
 
     this.setState({
-      currentPhotos: arr,
-      filterCount: arr.length
+      currentPhotos: this.state.currentPhotos.filter(
+        d => d.filter === e.target.value
+      ),
+      filterCount: this.state.currentPhotos.length
     });
   };
 
@@ -80,8 +79,8 @@ export default class App extends Component {
       photoFilters,
       currentPage,
       photosPerPage,
-      filterCount,
-      currentPhotos
+      currentPhotos,
+      filterCount
     } = this.state;
 
     const pageNumbers = [];

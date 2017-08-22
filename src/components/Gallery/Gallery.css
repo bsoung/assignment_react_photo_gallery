@@ -14,5 +14,8 @@
 }
 
 .page-numbers li {
+  color: blue;
+  user-select: none;
+  cursor: pointer;
   margin-right: 10px;
 }
