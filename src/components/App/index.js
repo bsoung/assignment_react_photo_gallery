@@ -10,15 +10,15 @@ export default class App extends Component {
       data: photos.data,
       photoFilters: [],
       filterCount: photos.data.length,
-      pager: {}
+      currentPage: 1,
+      photosPerPage: 12
+      // pageNumbers: []
     };
   }
 
   componentDidMount() {
     this._getPhotoFilters();
   }
-
-  _setPage = page => {};
 
   _getPhotoFilters = () => {
     let arr = [];
@@ -33,8 +33,21 @@ export default class App extends Component {
     });
   };
 
+  // _getPageNumbers = () => {
+  //   const { data, photosPerPage } = this.state;
+  //   const pageNumbers = [];
+  //   for (let i = 1; i <= Math.ceil(data.length / photosPerPage); i++) {
+  //     pageNumbers.push(i);
+  //   }
+
+  //   this.setState({
+  //     pageNumbers: pageNumbers
+  //   });
+  // };
+
   onChangeFilter = e => {
     let originalPhotos = photos.data;
+
     if (e.target.value === "all") {
       this.setState({
         data: originalPhotos,
@@ -51,13 +64,30 @@ export default class App extends Component {
   };
 
   render() {
-    const { data, photoFilters, filterCount } = this.state;
+    const {
+      data,
+      photoFilters,
+      currentPage,
+      photosPerPage,
+      filterCount
+    } = this.state;
+
+    const indexOfLastPhoto = currentPage * photosPerPage;
+    const indexOfFirstPhoto = indexOfLastPhoto - photosPerPage;
+    const currentPhotos = data.slice(indexOfFirstPhoto, indexOfLastPhoto);
+
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(data.length / photosPerPage); i++) {
+      pageNumbers.push(i);
+    }
+
     return (
       <Gallery
-        data={data}
+        filterCount={filterCount}
+        pageNumbers={pageNumbers}
+        data={currentPhotos}
         photoFilters={photoFilters}
         onChangeFilter={this.onChangeFilter}
-        filterCount={filterCount}
       />
     );
   }

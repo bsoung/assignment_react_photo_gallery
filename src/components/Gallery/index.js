@@ -4,6 +4,7 @@ import Search from "../Search";
 import "./Gallery.css";
 
 export default props => {
+	console.log(props, "????");
 	return (
 		<div className="gallery">
 			<Search {...props} />
