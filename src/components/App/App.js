@@ -11,9 +11,7 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    console.log(this.state);
-  }
+  componentDidMount() {}
 
   render() {
     return <Gallery data={this.state.data} />;

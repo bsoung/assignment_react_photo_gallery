@@ -1,18 +1,24 @@
 import React from "react";
+import Comment from "../Comment/Comment";
+import "./Post.css";
 
-const Post = props => {
-	return (
-		<div>
-			<h3>
-				{props.user.username}
-			</h3>
-			<img src={props.images.standard_resolution.url} />
-			<p>
-				Likes: {props.likes.count}
-			</p>
-			<p>Comments:</p>
-		</div>
-	);
+const Post = ({ photo }) => {
+  console.log(photo);
+  return (
+    <div>
+      <h3>
+        {photo.user.username}
+      </h3>
+      <img className="post-image" src={photo.images.standard_resolution.url} />
+      <p>
+        Likes: {photo.likes.count}
+      </p>
+      <p>
+        Comments:{" "}
+        {photo.comments.data.map(c => <Comment comment={c} key={c.id} />)}
+      </p>
+    </div>
+  );
 };
 
 export default Post;
