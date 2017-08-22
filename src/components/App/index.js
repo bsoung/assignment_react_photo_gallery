@@ -55,15 +55,15 @@ export default class App extends Component {
   };
 
   onChangeFilter = e => {
-    // let originalPhotos = this.state.currentPhotos.slice();
+    let originalPhotos = this.state.currentPhotos.slice();
 
-    // if (e.target.value === "all") {
-    //   this.setState({
-    //     currentPhotos: originalPhotos,
-    //     filterCount: originalPhotos.length
-    //   });
-    //   return;
-    // }
+    if (e.target.value === "all") {
+      this.setState({
+        currentPhotos: originalPhotos,
+        filterCount: originalPhotos.length
+      });
+      return;
+    }
 
     this.setState({
       currentPhotos: this.state.currentPhotos.filter(
